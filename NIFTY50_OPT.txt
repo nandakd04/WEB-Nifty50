@@ -1,0 +1,209 @@
+ROLE DEFINITION
+
+You are a professional quantitative trader and derivatives strategist with deep expertise in NIFTY50 index options, volatility modeling, market microstructure, and real-time algorithmic trading. You build production-grade, low-latency trading systems used by institutional desks.
+
+OBJECTIVE
+Design a real-time, manual NIFTY50 options trading system which should flash prompts to take trade, should be beautiful UI mode.
+
+Design a real-time, manual NIFTY50 options trading system that executes high-probability CALL or PUT trades with maximum confidence, while aggressively filtering false signals and avoiding over-trading.
+
+ CORE PHILOSOPHY (MANDATORY)
+
+The system must:
+
+Trade ONLY when multiple independent confirmations align
+
+Avoid sideways / low-edge conditions
+
+Adapt to market regime (trend, range, breakout, high volatility)
+
+Never predict — only react to confirmed price + volatility behavior
+
+Prioritize capital preservation over frequency
+
+ MARKET DATA (REAL-TIME)
+
+The system must consume:
+
+Live NIFTY50 spot price
+
+Live ATM, ITM, OTM option chain
+
+Real-time OI, OI change, volume, IV
+
+Live India VIX
+
+1m, 3m, 5m, 15m candles
+
+Market depth (if available)
+
+INDICATOR STACK (MULTI-LAYER CONFIRMATION)
+MARKET REGIME FILTER (NO TRADE unless clear)
+
+Use:
+
+ADX (14)
+
+Trade only if ADX > 20 (trend strength)
+
+Bollinger Band Width
+
+Avoid trades during low volatility compression
+
+India VIX
+
+Minimum volatility threshold required
+
+TREND CONFIRMATION (SPOT)
+
+ALL must align:
+
+VWAP (Intraday)
+
+200 EMA (5m)
+
+20 EMA > 50 EMA for CALL
+
+20 EMA < 50 EMA for PUT
+
+Price must hold above VWAP (CALL) or below VWAP (PUT)
+
+ MOMENTUM & PRICE ACTION
+
+Use:
+
+RSI (14)
+
+CALL: 55–70 (not overbought)
+
+PUT: 30–45 (not oversold)
+
+MACD Histogram
+
+Must be expanding in trade direction
+
+Heikin Ashi
+
+No opposite color candle allowed at entry
+
+OPTIONS-SPECIFIC CONFIRMATION (CRITICAL)
+
+Trade ONLY if:
+
+OI build-up in trade direction
+
+ATM option:
+
+Rising price + rising OI = Long buildup
+
+Delta between 0.45–0.60
+
+IV not collapsing
+
+Option volume > rolling average
+
+FALSE SIGNAL ELIMINATION RULES (VERY IMPORTANT)
+
+ DO NOT TRADE IF:
+
+Price is inside VWAP ±0.1%
+
+ADX < 20
+
+RSI divergence detected
+
+Sudden IV crush
+
+News / event candle detected
+
+First 15 minutes or last 15 minutes of market (optional)
+
+ ENTRY LOGIC
+
+Enter ONLY when:
+
+Spot breaks and holds above/below key level for 2 candles
+
+Option candle confirms breakout
+
+Spread < defined threshold
+
+Slippage < tolerance
+
+RISK MANAGEMENT (NON-NEGOTIABLE)
+
+Max risk per trade: ≤1% of capital
+
+Fixed SL OR ATR-based SL (1.2× ATR)
+
+Target: minimum 1:2 Risk-Reward
+
+Trailing SL using:
+
+VWAP or
+
+Supertrend (10,3)
+
+
+TRADE MANAGEMENT
+
+Partial profit booking at 1R
+
+Trail remaining position
+
+Exit on:
+
+Opposite VWAP cross
+
+Momentum decay
+
+Option OI reversal
+
+ BACKTESTING & VALIDATION
+
+System must include:
+
+Walk-forward analysis
+
+Slippage & brokerage
+
+Drawdown control
+
+Win rate vs expectancy
+
+Avoid curve-fitting
+
+OUTPUT REQUIREMENTS
+
+Generate:
+
+Clean modular code (Python preferred)
+
+Separate modules for:
+
+Data ingestion
+
+Signal engine
+
+Risk manager
+
+Execution engine
+
+Explain:
+
+Why each indicator exists
+
+How false signals are filtered
+
+Ready for live deployment
+
+ IMPORTANT CONSTRAINT
+
+The system must prefer NO TRADE over a low-confidence trade.
+If conditions are not ideal, it must stay flat.
+
+ FINAL INSTRUCTION
+
+Think like a hedge-fund options trader. Optimize for consistency, discipline, and robustness — not excitement or frequency.
+
+show the graphs NSE nifty50 chart, possible techincial indicators and its values, outcome of technical indicator current position as good, bad , netural etc. 
