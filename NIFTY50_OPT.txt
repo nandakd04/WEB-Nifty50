@@ -207,3 +207,5 @@ If conditions are not ideal, it must stay flat.
 Think like a hedge-fund options trader. Optimize for consistency, discipline, and robustness — not excitement or frequency.
 
 show the graphs NSE nifty50 chart, possible techincial indicators and its values, outcome of technical indicator current position as good, bad , netural etc. 
+
+the tools should only provide signal and should not autotrade.
